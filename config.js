@@ -1,12 +1,15 @@
 /** Common config for bookstore. */
 
-let DB_URI = `postgresql://`;
+require("dotenv").config();
 
-if (process.env.NODE_ENV === "test") {
-  DB_URI = `${DB_URI}/books-test`;
-} else {
-  DB_URI = process.env.DATABASE_URL || `${DB_URI}/books`;
-}
+const DB_URI =
+  process.env.NODE_ENV === "test"
+    ? process.env.DB_URI_TEST
+    : process.env.DB_URI_PROD;
 
+const SECRET_KEY = process.env.SECRET_KEY;
 
-module.exports = { DB_URI };
+module.exports = {
+  DB_URI,
+  SECRET_KEY,
+};
